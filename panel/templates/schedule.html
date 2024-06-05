@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+{% block body %}
+
+<div style="display: flex; align-items: center; margin-left: 1em;">
+    <a href="{% url 'createLecture' %}">
+        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center add-button">
+            +
+        </div>
+    </a>
+    <span class="nav-link-text ms-1">Add new lecture to the schedule</span>
+</div>
+
+<div class="row">
+    <div class="col-md-7 mt-4">
+        <div class="card">
+            <div class="card-header pb-0 px-3" style="display: flex;">
+                <h6 class="mb-0">Your schedule</h6><span style="margin-left: 2em;">{{date}}</span>
+
+                <div class="dateButtons" style="display: flex;">
+                    <a href="{% url 'schedule' %}?day={{ prev_date }}">
+                        <div style="width: 50px; height: 30px; text-align: center;"><</div>
+                    </a>
+    
+                    <a href="{% url 'schedule' %}?day={{ next_date }}" style="margin-left: 1em;">
+                        <div style="width: 50px; height: 30px; text-align: center;">></div>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="card-body pt-4 p-3">
+                <ul class="list-group">
+
+                    {% for lecture in lectures %}
+                    
+                    
+                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                        <div class="d-flex flex-column">
+                            <h5 class="mb-3 text-m">{{lecture.dateStart|date:"H:i"}} - {{lecture.dateEnd|date:"H:i"}}</h5>
+                            <h6 class="mb-3 text-sm">{{lecture.lecture.name}}</h6>
+                            <span class="mb-2 text-xs">Group: <span class="text-dark font-weight-bold ms-sm-2"><a href="{% url 'group' lecture.group.id %}">{{lecture.group}}</a></span></span>
+                            <span class="mb-2 text-xs">Type: <span class="text-dark ms-sm-2 font-weight-bold">{{lecture.type|capfirst}}</span></span>
+                            <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold">{{lecture.description}}</span></span>
+                        </div>
+                        <div class="ms-auto text-end">
+                            {% if lecture.started %}
+                            <a class="btn btn-link text-dark px-3 mb-0" href="{% url 'editAttendance' lecture.id %}"><i class="fas fa-address-book text-dark me-2" aria-hidden="true"></i>Manage the attendance</a>
+                            {% endif %}
+                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{% url 'deleteLecture' lecture.id %}"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                            <a class="btn btn-link text-dark px-3 mb-0" href="{% url 'editLecture' lecture.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                        </div>
+                    </li>
+                    
+                    
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

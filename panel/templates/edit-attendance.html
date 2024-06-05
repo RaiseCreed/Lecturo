@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+{% block body %}
+
+<!-- Return button -->
+<a href="{% url 'schedule' %}" class="backButton">
+    <b>&#8249;</b>
+</a>
+<br>
+<br>
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <table class="table align-items-center mb-0" id="studentTable">
+        <thead>
+        <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Index number</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">First name</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Last name</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Attendance</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            {% for student, attendance in attendanceTuple %}
+            <tr class='clickable-row' data-url="#">
+
+                <td>
+                    <div class="d-flex px-2 py-1">
+                        <div class="d-flex justify-content-">
+                            <h6 class="mb-0 text-sm">{{student.album_number}}</h6>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-">
+                            <h6 class="mb-0 text-sm">{{student.first_name}}</h6>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-">
+                            <h6 class="mb-0 text-sm">{{student.last_name}}</h6>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="d-flex px-2 py-1">
+                        <div class="attendance-radio">
+                            {% if attendance == True %}
+                                <input type="radio" name="radio-{{student.album_number}}" value="present" checked id="present-{{student.album_number}}"> <label for="present-{{student.album_number}}">Present</label>
+                                <input type="radio" name="radio-{{student.album_number}}" style="margin-left: 2em;" value="absent" id="absent-{{student.album_number}}"> <label for="absent-{{student.album_number}}">Absent</label>
+                            {% elif attendance == False %}
+                                <input type="radio" name="radio-{{student.album_number}}" value="present" id="present-{{student.album_number}}"> <label for="present-{{student.album_number}}">Present</label>
+                                <input type="radio" name="radio-{{student.album_number}}" style="margin-left: 2em;" value="absent" checked id="absent-{{student.album_number}}"> <label for="absent-{{student.album_number}}">Absent</label>
+                            {% else %}
+                                <input type="radio" name="radio-{{student.album_number}}" value="present" id="present-{{student.album_number}}"> <label for="present-{{student.album_number}}">Present</label>
+                                <input type="radio" name="radio-{{student.album_number}}" style="margin-left: 2em;" value="absent" id="absent-{{student.album_number}}"> <label for="absent-{{student.album_number}}">Absent</label>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <button class="badge badge-sm bg-gradient-success" style="margin-left: 2em; margin-top: 5em; border-width: 0px;">Save changes</button>
+
+</form>
+{% endblock body %}

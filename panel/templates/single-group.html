@@ -1,0 +1,109 @@
+{% extends 'main.html' %}
+{% block body %}
+
+<!-- Return button -->
+<a href="{% url 'groups' %}" class="backButton">
+    <b>&#8249;</b>
+</a>
+
+<br>
+<br>
+
+<div style="display: flex; align-items: center; margin-left: 1em;">
+    <a href="{% url 'createStudent' group.id %}">
+        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center add-button">
+            +
+        </div>
+    </a>
+    <span class="nav-link-text ms-1">Add new student</span>
+</div>
+
+<br>
+
+<table class="table align-items-center mb-0" id="studentTable">
+    <thead>
+      <tr>
+        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Index number</th>
+        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">First name</th>
+        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Last name</th>
+        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">E-mail address</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for student in students %}
+        <tr class='clickable-row' data-url="{% url 'showStudent' student.album_number %}">
+
+            <td>
+                <div class="d-flex px-2 py-1">
+                    <div class="d-flex justify-content-">
+                        <h6 class="mb-0 text-sm">{{student.album_number}}</h6>
+                        {% if not student.active %}
+                        <span class="badge badge-sm bg-gradient-warning" style="margin-left: 2em;">Deactivated</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-">
+                        <h6 class="mb-0 text-sm">{{student.first_name}}</h6>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-">
+                        <h6 class="mb-0 text-sm">{{student.last_name}}</h6>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-">
+                        <h6 class="mb-0 text-sm">{{student.email}}</h6>
+                    </div>
+                </div>
+            </td>
+
+            <td class="align-middle text-center text-sm">
+                <a href="{% url 'editStudent' student.album_number %}">Edit</a>
+            </td>
+
+            <td class="align-middle text-center text-sm">
+                <a href="{% url 'changeActiveStatus' student.album_number %}">
+                    {% if student.active %}
+                        Deactivate
+                    {% else %}
+                        Activate
+                    {% endif %}
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+
+    <!-- This adds a link on whole table row -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = document.getElementById("studentTable");
+        var rows = table.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            row.addEventListener("click", function () {
+                var url = this.getAttribute("data-url");
+                if (url) {
+                    window.location.href = url;
+                }
+            });
+        }
+    });
+    </script>
+
+{% endblock body %}

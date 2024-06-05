@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% block body %}
+
+<!-- Return button -->
+<a href="{% url 'group' student.group.id %}" class="backButton">
+    <b>&#8249;</b>
+</a>
+<br>
+
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header pb-0 px-3" style="text-align: center;">
+                <h6 class="mb-0">Student's data</h6>
+            </div>
+            <div class="card-body pt-4 p-3" style="text-align: center;">
+                Album number: <b>{{student.album_number}}</b>
+                <br><br>
+                First name: <b>{{student.first_name}}</b>
+                <br><br>
+                Last name: <b>{{student.last_name}}</b>
+                <br><br>
+                Email: <b>{{student.email}}</b>
+                <br><br>
+                Group: <b>{{student.group}}</b>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header pb-0 px-3" style="text-align: center;">
+                <h6 class="mb-0">Attendance</h6>
+            </div>
+            <div class="card-body pt-4 p-3" style="text-align: center;">
+
+                {% for subject, percentage in attendancePercentage %}
+
+                    {% if percentage >= 50 %}
+                        <h6>{{subject}}: <span class="badge badge-sm bg-gradient-success" style="margin-left: 2em;">{{percentage}}%</span></h6>
+                    {% else %}
+                        <h6>{{subject}}: <span class="badge badge-sm bg-gradient-danger">{{percentage}}%</span></h6>
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock body %}

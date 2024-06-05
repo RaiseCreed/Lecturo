@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+{% block body %}
+{% load static %}
+
+<div class="container-fluid">
+    <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('../assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
+      <span class="mask bg-gradient-primary opacity-6"></span>
+    </div>
+    <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+      <div class="row gx-4">
+        <div class="col-auto">
+          <div class="avatar avatar-xl position-relative">
+            <img src="{% static '/assets/img/image.jpg' %}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+          </div>
+        </div>
+        <div class="col-auto my-auto">
+          <div class="h-100">
+            <h5 class="mb-1">
+              Dominik Nowacki
+            </h5>
+            <p class="mb-0 font-weight-bold text-sm">
+              Lecturer
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12 col-xl-4">
+                <div class="card h-100">
+                <div class="card-header pb-0 p-3">
+                    <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <h6 class="mb-0">Profile Information</h6>
+                    </div>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <hr class="horizontal gray-light my-4">
+                    <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Lecturer ID:</strong> &nbsp; {{user.lecturer_id}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; {{user}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{user.mobile}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{user.email}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; {{user.location}}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Department:</strong> &nbsp; {{user.department}}</li>
+                        <br>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Working hours:</strong> &nbsp; {{user.working_hours}}</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+{% endblock body %}

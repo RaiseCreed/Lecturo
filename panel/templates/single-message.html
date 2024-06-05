@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+{% block body %}
+    <a href="{% url 'messages' %}" class="backButton">
+        <b>&#8249;</b>
+    </a>
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-7 mt-4">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                    <h2 class="mb-0">{{message.title}}</h2>
+                    <br>
+                    <b><span>From: {{message.sender}}</span></b>
+                    <br>
+                    <b><span>Date: {{message.created|date:"d-m-Y H:i:s"}}</span></b>
+                </div>
+                
+                <hr>
+
+                <div class="card-body pt-4 p-3">
+                    {{message.body|linebreaksbr}}
+                </div>
+            </div>
+        </div>
+    </div>
+  
+{% endblock body %}
